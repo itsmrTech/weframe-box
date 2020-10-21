@@ -1,15 +1,19 @@
 {
   "name": "weframe-box",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-      "start":"node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www"
   },
-  "author": "shadab",
-  "license": "ISC",
   "dependencies": {
-    "systeminformation": "^4.27.3"
+    "axios": "^0.20.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.0",
+    "shortid": "^2.2.15",
+    "systeminformation": "^4.27.10"
   }
 }
