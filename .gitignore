@@ -106,3 +106,4 @@ public/cache/*
 cache.json
 performance.json
 yarn.lock
+package-lock.json
