@@ -97,6 +97,7 @@ async function sendSystemInfo() {
         },
 
         inet_latency: (callback) => {
+            return {}
             si.inetLatency("194.5.193.188")
                 .then(data => {
                     // console.log("response time in ms", data)
