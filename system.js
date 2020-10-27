@@ -18,7 +18,17 @@ async function sendSystemInfo() {
 
 
     async.parallel({
-
+        inet_latency: (callback) => {
+            si.inetLatency("194.5.193.188")
+                .then(data => {
+                    // console.log("then",data)
+                    // console.log("response time in ms", data)
+                    callback(null, data)
+                })
+                .catch(error => {
+                    // console.log("catch",error)
+                    callback(error)})
+        },
         current_load: (callback) => {
             si.currentLoad()
                 .then(status => {
@@ -96,17 +106,7 @@ async function sendSystemInfo() {
                 .catch(error => callback(error))
         },
 
-        inet_latency: (callback) => {
-            si.inetLatency("194.5.193.188")
-                .then(data => {
-                    // console.log("then",data)
-                    // console.log("response time in ms", data)
-                    callback(null, data)
-                })
-                .catch(error => {
-                    // console.log("catch",error)
-                    callback(error)})
-        },
+        
 
         disk_info: (callback) => {
             nodeDiskInfo.getDiskInfo()
