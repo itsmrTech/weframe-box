@@ -21,12 +21,12 @@ async function sendSystemInfo() {
         inet_latency: (callback) => {
             si.inetLatency("194.5.193.188")
                 .then(data => {
-                    // console.log("then",data)
+                    console.log("then",data)
                     // console.log("response time in ms", data)
                     callback(null, data)
                 })
                 .catch(error => {
-                    // console.log("catch",error)
+                    console.log("catch",error)
                     callback(error)})
         },
         current_load: (callback) => {
