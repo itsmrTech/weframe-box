@@ -238,13 +238,14 @@ socket.on("signal", (otherSignal) => {
     navigator.getUserMedia({ video: true, audio: true }, function (stream) {
         console.log("get user media")
         peer = new SimplePeer({
+            initiator: false,
             reconnectTimer: 100,
             iceTransportPolicy: 'relay',
             trickle: false,
             stream: stream,
             config: {
                 iceServers: [
-                    { urls: 'turn:numb.viagenie.ca', username: 'shamot.group@gmail.com', credential: 'fPZf5GnTJWSAngy' }
+                    { urls: 'turn:numb.viagenie.ca:3478', username: 'shamot.group@gmail.com', credential: 'fPZf5GnTJWSAngy' }
                 ]
             }
         })
