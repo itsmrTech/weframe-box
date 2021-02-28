@@ -1,6 +1,6 @@
 
 const HOST = "https://api.dev.together.shamot.ir"
-const DOMAIN=".shamot.ir"
+const DOMAIN = ".shamot.ir"
 const DEVICE_CODE = (window.location.hash) ? window.location.hash.slice(1) : "PPBqWA9"
 // let slideshow = {
 //     photos:[]
@@ -9,9 +9,9 @@ function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     var expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;domain="+DOMAIN;
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;domain=" + DOMAIN;
 }
-setCookie("device-code",DEVICE_CODE)
+setCookie("device-code", DEVICE_CODE)
 
 function getCookie(cname) {
     var name = cname + "=";
@@ -162,7 +162,7 @@ socket.on("slideshow", (data) => {
     let { slideshow, device } = data
     Device = device
     setCookie("device", JSON.stringify(device))
-    slideshow.photos=slideshow.photos.map(photo=>`${photo}?device-code=${DEVICE_CODE}`)
+    slideshow.photos = slideshow.photos.map(photo => `${photo}?device-code=${DEVICE_CODE}`)
     console.log(slideshow)
     if (slideshow.photos && slideshow.photos.length > 0) {
         showOnly("slideshow")
@@ -233,17 +233,18 @@ const genGreeting = (name) => {
 var peer;
 var video;
 socket.on("signal", (otherSignal) => {
-    console.log("signal",otherSignal,peer)
+    console.log("signal", otherSignal, peer)
     if (peer) return;
     navigator.getUserMedia({ video: true, audio: true }, function (stream) {
         console.log("get user media")
         peer = new SimplePeer({
-            initiator: false,
+            reconnectTimer: 100,
+            iceTransportPolicy: 'relay',
             trickle: false,
             stream: stream,
-            config:{
-                iceServers:[
-                    {urls:'turn:numb.viagenie.ca:3478',username:'shamot.group@gmail.com',credential:'fPZf5GnTJWSAngy'}
+            config: {
+                iceServers: [
+                    { urls: 'turn:numb.viagenie.ca', username: 'shamot.group@gmail.com', credential: 'fPZf5GnTJWSAngy' }
                 ]
             }
         })
@@ -262,15 +263,15 @@ socket.on("signal", (otherSignal) => {
         peer.on('signal', function (data) {
             socket.emit("signal", { signal: data, panelid: otherSignal.panelid })
         })
-        peer.on("error",function(error){
-            console.error("WEBRTC Error:",error)
-            socket.emit("webrtc-error",{error})
+        peer.on("error", function (error) {
+            console.error("WEBRTC Error:", error)
+            socket.emit("webrtc-error", { error })
         })
     }, function (err) {
 
     })
 })
-socket.on("hangup",(data)=>{
+socket.on("hangup", (data) => {
     console.log("hangup")
     location.reload();
 })
