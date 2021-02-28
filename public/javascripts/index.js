@@ -22,9 +22,12 @@ function getFirmwareInfo() {
         return firmware
     })
 }
-firmware = getFirmwareInfo()
+function setFirmware(){
+    firmware = getFirmwareInfo()
+    console.log("weFrame Firmware build ",firmware.build)
+}
 setInterval(function () {
-    if(firmware.build==-1)firmware = getFirmwareInfo()
+    if(firmware.build==-1)setFirmware()
     var newFirmware = getFirmwareInfo
     if (newFirmware.build > firmware.build)
         location.reload();
