@@ -267,7 +267,14 @@ socket.on("signal", (otherSignal) => {
         })
         peer.on("error", function (error) {
             console.error("WEBRTC Error:", error)
-            socket.emit("webrtc-error", { error })
+            socket.emit("webrtc-error", { error, panelid: otherSignal.panelid })
+            location.reload();
+
+        })
+        peer.on('close', () => {
+            socket.emit("webrtc-closed", { panelid: otherSignal.panelid })
+            location.reload();
+
         })
     }, function (err) {
 
