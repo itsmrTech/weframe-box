@@ -15,16 +15,18 @@ function setCookie(cname, cvalue, exdays) {
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;domain=" + DOMAIN;
 }
 setCookie("device-code", DEVICE_CODE)
-function getFirmwareInfo() {
+function getFirmwareInfo(cb=()=>{}) {
     axios.get("http://localhost:3002/firmware").then(response => {
-        return response.data
+        return cb(response.data)
     }).catch(e => {
-        return firmware
+        return cb(firmware)
     })
 }
 function setFirmware(){
-    firmware = getFirmwareInfo()
-    console.log("weFrame Firmware build ",firmware.build)
+   getFirmwareInfo((newFirmware)=>{
+       firmware={...newFirmware}
+       console.log("weFrame Firmware build ",firmware.build)
+   })
 }
 setFirmware()
 setInterval(function () {
