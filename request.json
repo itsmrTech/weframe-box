@@ -1,0 +1,58 @@
+{
+
+    cpu_current_load: 2.167181271383912,
+    cpu_average_temperature: 47.7,
+    networks: [
+        {
+            iface: 'wlan0',
+            ifaceName: 'wlan0',
+            ip4: '192.168.0.205',
+            ip4subnet: '255.255.255.0',
+            ip6: 'fe80: :c20b: 2d71:e8a5: 25ac',
+            ip6subnet: 'ffff:ffff:ffff:ffff: :',
+            mac: 'b8: 27:eb:c6:a5: 9d',
+            internal: false,
+            virtual: false,
+            operstate: 'up',
+            type: 'wireless',
+            duplex: '',
+            mtu: 1500,
+            speed: -1,
+            dhcp: false,
+            dnsSuffix: 'Unknown',
+            ieee8021xAuth: 'Not defined',
+            ieee8021xState: 'Disabled',
+            carrierChanges: 2
+            wifi_name: "SHAMOT!",
+            quality: 70
+        }
+    ],
+    time: {
+        current: 1601025462913,
+        uptime: 3917,
+        timezone: 'GMT+0330',
+        timezoneName: 'Iran Standard Time'
+            },
+            battery: {
+                hasbattery: false,
+                cyclecount: 0,
+                ischarging: false,
+                designedcapacity: 0,
+                maxcapacity: 0,
+                currentcapacity: 0,
+                voltage: 0,
+                capacityUnit: '',
+                percent: 0,
+                timeremaining: -1,
+                acconnected: true,
+                type: '',
+                model: '',
+                manufacturer: '',
+                serial: ''
+                    },
+                disk_capacity:234782346234,
+                disk_used:1313902,
+                ram_total:13213123,
+                ram_free:21312312,
+                server_ping:255.6
+}

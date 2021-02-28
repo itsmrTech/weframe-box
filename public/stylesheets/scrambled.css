@@ -1,0 +1,19 @@
+#code-container {
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 100px;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20vw;
+}
+
+.text {
+    font-weight: 100;
+    color: #fafafa;
+}
+
+.dud {
+    color: #757575;
+}

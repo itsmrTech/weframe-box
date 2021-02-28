@@ -1,0 +1,99 @@
+html {
+  min-height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+.slideshow {
+  list-style: none;
+  z-index: 1;
+  transition-duration: 1s;
+}
+.slideshow li span {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  color: transparent;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: none;
+  /* opacity: 1; */
+  z-index: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-animation-name: imageAnimation;
+  -moz-animation-name: imageAnimation;
+  animation-name: imageAnimation;
+
+  animation-timing-function: ease-out;
+  transition-duration: 1s;
+
+  animation-iteration-count: infinite;
+  
+}
+.slideshow li h3 {
+  position: absolute;
+  text-align: center;
+  z-index: 2;
+  bottom: 150px;
+  left: 0;
+  right: 0;
+  opacity: 1;
+  font-size: 4.0625em;
+  font-family: 'Josefin Sans', sans-serif;
+  text-transform: uppercase;
+  color: #fff;
+  -webkit-animation: titleAnimation 24s ease 1 0s;
+  -moz-animation: titleAnimation 24s ease 1 0s;
+  animation: titleAnimation 24s ease 1 0s;
+  
+}
+.hide{
+  opacity: 0;
+  transition-duration: 1s;
+
+}
+@media only screen and (min-width: 768px) {
+  .slideshow li h3 {
+    bottom: 30px;
+    font-size: 8.125em;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .slideshow li h3 {
+    font-size: 10.9375em;
+  }
+}
+
+.slideshow li:nth-child(1) span {
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/203277/summer-slide.jpg);
+}
+
+.slideshow li:nth-child(2) span {
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/203277/fall-slide.jpg);
+  -webkit-animation-delay: 6s;
+  -moz-animation-delay: 6s;
+  animation-delay: 6s;
+}
+
+.slideshow li:nth-child(3) span {
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/203277/winter-slide.jpg);
+  -webkit-animation-delay: 12s;
+  -moz-animation-delay: 12s;
+  animation-delay: 12s;
+}
+
+.slideshow li:nth-child(4) span {
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/203277/spring-slide.jpg);
+  -webkit-animation-delay: 18s;
+  -moz-animation-delay: 18s;
+  animation-delay: 18s;
+}
+
+.no-cssanimations .slideshow li span {
+  opacity: 1;
+}

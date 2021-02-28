@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="stylesheets/slideshow.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="stylesheet" href="stylesheets/scrambled.css">
+    <link rel="stylesheet" href="stylesheets/clock.css">
+</head>
+
+<body>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <ul id="slideshow" class='slideshow'>
+    </ul>
+    <div id="video-container">
+
+    </div>
+    <div id="setup">
+        <div id="pairing-container">
+            <div>
+                <li id="hello-list">
+                    <ul>Hello</ul>
+                    <ul>درود</ul>
+                    <ul>Bonjour</ul>
+                    <ul>Hola</ul>
+                    <ul>مرحبا</ul>
+                    <ul>여보세요</ul>
+                    <ul>Salve</ul>
+                    <ul>Olá</ul>
+                    <ul>Hallo</ul>
+                    <ul>Привет</ul>
+                    <ul>ہیلو</ul>
+                    <ul>Здравейте</ul>
+                    <ul>Ciao</ul>
+                    <ul>こんにちは</ul>
+                </li>
+            </div>
+            <div id="code-container">
+                <div class="text"></div>
+                <p id="pair-description">Type the above code in your panel to connect this device to your account. This
+                    code will be expired in <span id="expiration"></span> </p>
+            </div>
+        </div>
+        <div id="complete-setup-container">
+            ✔
+        </div>
+    </div>
+    <div id="home-container">
+
+        <div id="home-section1" class="home-section">
+
+            <div class="clock">
+                <ul class="clock__marks"></ul>
+                <div class="clock__hands">
+                    <div class="clock__hand clock__hand--hour"></div>
+                    <div class="clock__hand clock__hand--minute"></div>
+                    <div class="clock__hand clock__hand--second"></div>
+
+                </div>
+            </div>
+        </div>
+        <div id="home-section2" class="home-section">
+            <h1 id="home-calendar">Hello</h1>
+            <div id="weather">
+                
+            </div>
+        </div>
+
+    </div>
+    <!-- <script src="javascripts/jquery-3.5.1.slim.min.js" ></script> -->
+    <script src="javascripts/axios.min.js"></script>
+    <script src="javascripts/jquery-3.5.1.slim.min.js"></script>
+    <script src="javascripts/lazyload.js"></script>
+    <script src="javascripts/moment.min.js"></script>
+    <script src="javascripts/moment-timezone.js"></script>
+    <script src="javascripts/moment-jalali.js"></script>
+    <script src="javascripts/simplepeer.min.js" charset="utf-8"></script>
+    <script src="javascripts/socket.io.js"></script>
+    <script src="javascripts/scrambled.js"></script>
+    <script src="javascripts/clock.js"></script>
+    <script src="javascripts/index.js"></script>
+</body>
+
+</html>
