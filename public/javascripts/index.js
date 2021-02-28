@@ -245,7 +245,8 @@ socket.on("signal", (otherSignal) => {
             stream: stream,
             config: {
                 iceServers: [
-                    { urls: 'turn:numb.viagenie.ca:3478', username: 'shamot.group@gmail.com', credential: 'fPZf5GnTJWSAngy' }
+                    { urls: 'turn:194.5.193.188:3478', username: 'shamot.group@gmail.com', credential: 'wjxQjRnsmNrv8uAU' }
+
                 ]
             }
         })
