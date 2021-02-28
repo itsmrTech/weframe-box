@@ -5,6 +5,11 @@ var { downloadFile } = require("../tools/file");
 var shortid = require("shortid")
 var fs=require("fs")
 if(!fs.existsSync("public/cache"))fs.mkdirSync("public/cache")
+router.get('/firmware',async function(req,res,next){
+  return res.status(200).json({
+    build:1
+  })
+})
 /* GET home page. */
 router.get('/files/cache', async function (req, res, next) {
   let { url } = req.query

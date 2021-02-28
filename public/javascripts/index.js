@@ -2,6 +2,9 @@
 const HOST = "https://api.dev.together.shamot.ir"
 const DOMAIN = ".shamot.ir"
 const DEVICE_CODE = (window.location.hash) ? window.location.hash.slice(1) : "PPBqWA9"
+var firmware = {
+    build: -1
+}
 // let slideshow = {
 //     photos:[]
 // }
@@ -12,6 +15,21 @@ function setCookie(cname, cvalue, exdays) {
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;domain=" + DOMAIN;
 }
 setCookie("device-code", DEVICE_CODE)
+function getFirmwareInfo() {
+    axios.get("http://localhost:3002/firmware").then(response => {
+        return response
+    }).catch(e => {
+        return firmware
+    })
+}
+firmware = getFirmwareInfo()
+setInterval(function () {
+    if(firmware.build==-1)firmware = getFirmwareInfo()
+    var newFirmware = getFirmwareInfo
+    if (newFirmware.build > firmware.build)
+        location.reload();
+
+}, 1 * 60 * 1000)
 
 function getCookie(cname) {
     var name = cname + "=";
