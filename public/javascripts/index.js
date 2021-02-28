@@ -240,7 +240,13 @@ socket.on("signal", (otherSignal) => {
         peer = new SimplePeer({
             initiator: false,
             trickle: false,
-            stream: stream
+            stream: stream,
+            config:{
+                iceServers:[
+                    { urls: 'stun:stun.l.google.com:19302' }, { urls: 'stun:global.stun.twilio.com:3478?transport=udp' },
+                    {urls:'numb.viagenie.ca',username:'shamot.group@gmail.com',credentials:'fPZf5GnTJWSAngy'}
+                ]
+            }
         })
         peer.on('stream', function (stream) {
             if (!video) {
