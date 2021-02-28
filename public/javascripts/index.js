@@ -17,8 +17,7 @@ function setCookie(cname, cvalue, exdays) {
 setCookie("device-code", DEVICE_CODE)
 function getFirmwareInfo() {
     axios.get("http://localhost:3002/firmware").then(response => {
-        console.log(response)
-        return response
+        return response.data
     }).catch(e => {
         return firmware
     })
