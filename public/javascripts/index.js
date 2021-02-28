@@ -26,6 +26,7 @@ function setFirmware(){
     firmware = getFirmwareInfo()
     console.log("weFrame Firmware build ",firmware.build)
 }
+setFirmware()
 setInterval(function () {
     if(firmware.build==-1)setFirmware()
     var newFirmware = getFirmwareInfo
