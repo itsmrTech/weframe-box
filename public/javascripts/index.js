@@ -14,7 +14,6 @@ function setCookie(cname, cvalue, exdays) {
     var expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;domain=" + DOMAIN;
 }
-fetchCache();
 function fetchCache(){
     axios.get("http://localhost:3002/files/cache/total").then(response => {
         let {urls}=response.data;
@@ -29,6 +28,8 @@ function fetchCache(){
         console.error(e)
     })
 }
+fetchCache();
+
 setCookie("device-code", DEVICE_CODE)
 function getFirmwareInfo(cb=()=>{}) {
     axios.get("http://localhost:3002/firmware").then(response => {
@@ -39,7 +40,7 @@ function getFirmwareInfo(cb=()=>{}) {
     
 }
 function cleanCache(urls,cb=()=>{}){
-    axios.delete("http://localhost:3002/firmware",{urls}).then(response => {
+    axios.delete("http://localhost:3002/files/cache/total",{urls}).then(response => {
         return cb(response.data)
     }).catch(e => {
         return cb(e)
