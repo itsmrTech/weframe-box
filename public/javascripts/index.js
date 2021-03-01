@@ -217,7 +217,7 @@ socket.on("slideshow", (data) => {
     let { slideshow, device } = data
     Device = device
     setCookie("device", JSON.stringify(device))
-    cleanCache(slideshow)
+    cleanCache([...slideshow.photos])
     slideshow.photos = slideshow.photos.map(photo => `http://localhost:3002/files/cache?url=${photo}?device-code=${DEVICE_CODE}`)
     console.log(slideshow)
     if (slideshow.photos && slideshow.photos.length > 0) {
