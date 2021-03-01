@@ -14,10 +14,10 @@ function setCookie(cname, cvalue, exdays) {
     var expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;domain=" + DOMAIN;
 }
-function fetchCache(){
+function fetchCache() {
     axios.get("http://localhost:3002/files/cache/total").then(response => {
-        let {urls}=response.data;
-        if(!urls)urls=[]
+        let { urls } = response.data;
+        if (!urls) urls = []
         if (urls && urls.length > 0) {
             showOnly("slideshow")
             return genJsSlideshow(urls)
@@ -31,31 +31,37 @@ function fetchCache(){
 fetchCache();
 
 setCookie("device-code", DEVICE_CODE)
-function getFirmwareInfo(cb=()=>{}) {
+function getFirmwareInfo(cb = () => { }) {
     axios.get("http://localhost:3002/firmware").then(response => {
         return cb(response.data)
     }).catch(e => {
         return cb(firmware)
     })
-    
+
 }
-function cleanCache(urls,cb=()=>{}){
-    axios.delete("http://localhost:3002/files/cache",{urls}).then(response => {
+function cleanCache(urls, cb = () => { }) {
+    axios.delete("http://localhost:3002/files/cache", {
+        headers: {
+            // Overwrite Axios's automatically set Content-Type
+            'Content-Type': 'application/json'
+        }
+        , data: { urls }
+    }).then(response => {
         return cb(response.data)
     }).catch(e => {
         return cb(e)
     })
 }
-function setFirmware(){
-   getFirmwareInfo((newFirmware)=>{
-       firmware={...newFirmware}
-       console.log("weFrame Firmware build ",firmware.build)
-   })
+function setFirmware() {
+    getFirmwareInfo((newFirmware) => {
+        firmware = { ...newFirmware }
+        console.log("weFrame Firmware build ", firmware.build)
+    })
 }
 setFirmware()
 setInterval(function () {
-    if(firmware.build==-1)setFirmware()
-    getFirmwareInfo((newFirmware)=>{
+    if (firmware.build == -1) setFirmware()
+    getFirmwareInfo((newFirmware) => {
         if (newFirmware.build > firmware.build)
             location.reload();
     })

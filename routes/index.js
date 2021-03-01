@@ -7,7 +7,7 @@ var fs=require("fs")
 if(!fs.existsSync("public/cache"))fs.mkdirSync("public/cache")
 router.get('/firmware',async function(req,res,next){
   return res.status(200).json({
-    build:9
+    build:10
   })
 })
 /* GET home page. */
