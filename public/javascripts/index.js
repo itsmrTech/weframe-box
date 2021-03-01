@@ -40,7 +40,7 @@ function getFirmwareInfo(cb=()=>{}) {
     
 }
 function cleanCache(urls,cb=()=>{}){
-    axios.delete("http://localhost:3002/files/cache/total",{urls}).then(response => {
+    axios.delete("http://localhost:3002/files/cache",{urls}).then(response => {
         return cb(response.data)
     }).catch(e => {
         return cb(e)
