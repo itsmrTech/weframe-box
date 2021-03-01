@@ -7,7 +7,7 @@ var fs=require("fs")
 if(!fs.existsSync("public/cache"))fs.mkdirSync("public/cache")
 router.get('/firmware',async function(req,res,next){
   return res.status(200).json({
-    build:3
+    build:4
   })
 })
 /* GET home page. */
@@ -30,6 +30,11 @@ router.delete('/files/cache',async function(req,res){
   console.log(urls)
   removeByURLs(urls)
   res.status(200).json({done:true})
+})
+router.get('/files/cache/total',async function(req,res){
+  return res.status(200).json({
+    urls:global.images_cache.map(im=>im.url)
+  })
 })
 
 module.exports = router;

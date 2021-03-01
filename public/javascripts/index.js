@@ -14,12 +14,34 @@ function setCookie(cname, cvalue, exdays) {
     var expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;domain=" + DOMAIN;
 }
+function fetchCache(){
+    axios.get("http://localhost:3002/files/cache/total").then(response => {
+        let {urls}=response.data;
+        if(!urls)urls=[]
+        if (urls && urls.length > 0) {
+            showOnly("slideshow")
+            return genJsSlideshow(urls)
+        }
+        showOnly("home")
+
+    }).catch(e => {
+        console.error(e)
+    })
+}
 setCookie("device-code", DEVICE_CODE)
 function getFirmwareInfo(cb=()=>{}) {
     axios.get("http://localhost:3002/firmware").then(response => {
         return cb(response.data)
     }).catch(e => {
         return cb(firmware)
+    })
+    
+}
+function cleanCache(urls,cb=()=>{}){
+    axios.delete("http://localhost:3002/firmware",{urls}).then(response => {
+        return cb(response.data)
+    }).catch(e => {
+        return cb(e)
     })
 }
 function setFirmware(){
@@ -186,6 +208,7 @@ socket.on("slideshow", (data) => {
     let { slideshow, device } = data
     Device = device
     setCookie("device", JSON.stringify(device))
+    cleanCache(slideshow)
     slideshow.photos = slideshow.photos.map(photo => `http://localhost:3002/files/cache?url=${photo}?device-code=${DEVICE_CODE}`)
     console.log(slideshow)
     if (slideshow.photos && slideshow.photos.length > 0) {
