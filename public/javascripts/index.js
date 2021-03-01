@@ -55,9 +55,10 @@ function setFirmware(){
 setFirmware()
 setInterval(function () {
     if(firmware.build==-1)setFirmware()
-    var newFirmware = getFirmwareInfo
-    if (newFirmware.build > firmware.build)
-        location.reload();
+    getFirmwareInfo((newFirmware)=>{
+        if (newFirmware.build > firmware.build)
+            location.reload();
+    })
 
 }, 1 * 60 * 1000)
 
