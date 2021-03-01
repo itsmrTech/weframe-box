@@ -14,6 +14,7 @@ function setCookie(cname, cvalue, exdays) {
     var expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;domain=" + DOMAIN;
 }
+fetchCache();
 function fetchCache(){
     axios.get("http://localhost:3002/files/cache/total").then(response => {
         let {urls}=response.data;
