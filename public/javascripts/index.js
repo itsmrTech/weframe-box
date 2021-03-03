@@ -208,13 +208,13 @@ socket.on("hand-shake", (data) => {
     console.log("hand shaking")
     socket.emit("hand-shake", { device_code: DEVICE_CODE })
 })
-var lastPingedAt=0;
-setInterval(()=>{
-    if(Date.now()-lastPingedAt>10*1000)return
+var lastPingedAt = 0;
+setInterval(() => {
+    if (Date.now() - lastPingedAt > 10 * 1000) return
 })
 socket.on("you-there", (data) => {
     // console.log("ping!", data)
-    lastPingedAt=Date.now()
+    lastPingedAt = Date.now()
     if (!data) return
     socket.emit("im-here", { timestamp: Date.now(), id: data.id })
 })
@@ -291,55 +291,74 @@ const genGreeting = (name) => {
     return `Good ${time}, ${name}!`
 }
 
+var ringtone = new Audio('/ringtones/iphone_ringtone.mp3');
+ringtone.loop=true;
+// setTimeout(()=>ringtone.play(),3000)
+// const ring = (duration = 30) => {
+//     audio.play();
+
+// }
+// const stopRinging = () => {
+
+// }
 var peer;
 var video;
 socket.on("signal", (otherSignal) => {
     console.log("signal", otherSignal, peer)
     if (peer) return;
-    navigator.getUserMedia({ video: true, audio: true }, function (stream) {
-        console.log("get user media")
-        peer = new SimplePeer({
-            initiator: false,
-            reconnectTimer: 100,
-            iceTransportPolicy: 'relay',
-            trickle: false,
-            stream: stream,
-            config: {
-                iceServers: [
-                    { urls: 'turn:194.5.193.188:3478', username: 'shamot.group@gmail.com', credential: 'wjxQjRnsmNrv8uAU' }
+    ringtone.currentTime = 0;
+    ringtone.play();
+    setTimeout(() => {
 
-                ]
-            }
-        })
-        peer.on('stream', function (stream) {
-            if (!video) {
-                video = document.createElement('video')
-                document.getElementById("video-container").appendChild(video)
-            }
+        navigator.getUserMedia({ video: true, audio: true }, function (stream) {
+            console.log("get user media")
+            peer = new SimplePeer({
+                initiator: false,
+                reconnectTimer: 100,
+                iceTransportPolicy: 'relay',
+                trickle: false,
+                stream: stream,
+                config: {
+                    iceServers: [
+                        { urls: 'turn:194.5.193.188:3478', username: 'shamot.group@gmail.com', credential: 'wjxQjRnsmNrv8uAU' }
 
-            video.srcObject = stream
-            video.play()
-            showOnly("voip")
-        })
-        console.log("other", otherSignal)
-        peer.signal(otherSignal.signal)
-        peer.on('signal', function (data) {
-            socket.emit("signal", { signal: data, panelid: otherSignal.panelid })
-        })
-        peer.on("error", function (error) {
-            console.error("WEBRTC Error:", error)
-            socket.emit("webrtc-error", { error, panelid: otherSignal.panelid })
-            location.reload();
+                    ]
+                }
+            })
+            peer.on('stream', function (stream) {
+                if (!video) {
+                    video = document.createElement('video')
+                    document.getElementById("video-container").appendChild(video)
+                }
+
+                video.srcObject = stream
+                video.play()
+                setTimeout(() => {
+                    ringtone.pause();
+                }, 5000)
+                showOnly("voip")
+            })
+            console.log("other", otherSignal)
+            peer.signal(otherSignal.signal)
+            peer.on('signal', function (data) {
+                socket.emit("signal", { signal: data, panelid: otherSignal.panelid })
+            })
+            peer.on("error", function (error) {
+                console.error("WEBRTC Error:", error)
+                socket.emit("webrtc-error", { error, panelid: otherSignal.panelid })
+                location.reload();
+
+            })
+            peer.on('close', () => {
+                socket.emit("webrtc-closed", { panelid: otherSignal.panelid })
+                location.reload();
+
+            })
+        }, function (err) {
 
         })
-        peer.on('close', () => {
-            socket.emit("webrtc-closed", { panelid: otherSignal.panelid })
-            location.reload();
+    }, 15000)
 
-        })
-    }, function (err) {
-
-    })
 })
 socket.on("hangup", (data) => {
     console.log("hangup")
@@ -370,7 +389,7 @@ socket.on("hangup", (data) => {
 // }
 let slideshowInterval
 function genJsSlideshow(photos) {
-    if(slideshowInterval)clearInterval(slideshowInterval)
+    if (slideshowInterval) clearInterval(slideshowInterval)
     let delay = 15;
     let html = ``
     let buffer_count = 4;
