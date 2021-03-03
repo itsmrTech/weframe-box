@@ -25,7 +25,7 @@ const getByURL=(url)=>{
     return global.images_cache.find(v => v.url == url)
 }
 const removeByURLs=async(urls)=>{
-    
+    console.log(global.images_cache.length)
     global.images_cache=global.images_cache.filter(cache=>{
         let found=false;
         urls.map(url=>{
@@ -34,9 +34,11 @@ const removeByURLs=async(urls)=>{
                 fs.unlink(cache.local_path,()=>{})
             }
         })
-        console.log(cache,found)
-        return !found
+        console.log('omiting',cache,found)
+        return found
     })
+    console.log(global.images_cache.length)
+
     updateFile()
 
 }

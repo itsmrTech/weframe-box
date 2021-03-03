@@ -238,3 +238,31 @@ line-height: 2.5ch;
   flex-direction: column;
 
 }
+.icon{
+  z-index: 999999;
+  position: fixed;
+  font-size: 80px;
+}
+.pulsing{
+  animation-name: pulsing-animation;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes pulsing-animation {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}

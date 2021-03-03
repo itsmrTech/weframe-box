@@ -208,8 +208,13 @@ socket.on("hand-shake", (data) => {
     console.log("hand shaking")
     socket.emit("hand-shake", { device_code: DEVICE_CODE })
 })
+var lastPingedAt=0;
+setInterval(()=>{
+    if(Date.now()-lastPingedAt>10*1000)return
+})
 socket.on("you-there", (data) => {
-    console.log("ping!", data)
+    // console.log("ping!", data)
+    lastPingedAt=Date.now()
     if (!data) return
     socket.emit("im-here", { timestamp: Date.now(), id: data.id })
 })
@@ -217,8 +222,8 @@ socket.on("slideshow", (data) => {
     let { slideshow, device } = data
     Device = device
     setCookie("device", JSON.stringify(device))
+    slideshow.photos = slideshow.photos.map(photo => `${photo}?device-code=${DEVICE_CODE}`)
     cleanCache([...slideshow.photos])
-    slideshow.photos = slideshow.photos.map(photo => `http://localhost:3002/files/cache?url=${photo}?device-code=${DEVICE_CODE}`)
     console.log(slideshow)
     if (slideshow.photos && slideshow.photos.length > 0) {
         showOnly("slideshow")
@@ -365,6 +370,7 @@ socket.on("hangup", (data) => {
 // }
 let slideshowInterval
 function genJsSlideshow(photos) {
+    if(slideshowInterval)clearInterval(slideshowInterval)
     let delay = 15;
     let html = ``
     let buffer_count = 4;
@@ -372,7 +378,7 @@ function genJsSlideshow(photos) {
     let buffer = photos.slice(0, buffer_count)
     buffer.map((photo, i) => {
         $("#slideshow").append(`<li>
-        <span style="background-image:url('${photo}'); opacity:0;"></span>
+        <span style="background-image:url('http://localhost:3002/files/cache?url=${photo}'); opacity:0;"></span>
         </li>`)
     })
     $(`#slideshow li:nth-child(1) span`).css("opacity", 1);
@@ -383,7 +389,7 @@ function genJsSlideshow(photos) {
         setTimeout(() => {
             $(`#slideshow li:nth-child(1)`).remove();
             $("#slideshow").append(`<li>
-            <span style="background-image:url('${photos[(buffer_count + index) % photos.length]}'); opacity:0;"></span>
+            <span style="background-image:url('http://localhost:3002/files/cache?url=${photos[(buffer_count + index) % photos.length]}'); opacity:0;"></span>
             </li>`);
             index++;
             $(`#slideshow li:nth-child(1) span`).css("opacity", 1);
@@ -421,7 +427,7 @@ function updateSlideshow(photos) {
     </style>`
     photos.map((photo, i) => {
         html += `<li>
-    <span style="background-image:url('${photo}');
+    <span style="background-image:url('http://localhost:3002/files/cache?url=${photo}');
     -webkit-animation-delay: ${i * delay}s;
     -moz-animation-delay: ${i * delay}s;
      animation-delay: ${i * delay}s;
