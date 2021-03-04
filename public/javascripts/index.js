@@ -390,7 +390,7 @@ socket.on("hangup", (data) => {
 let slideshowInterval
 function genJsSlideshow(photos) {
     if (slideshowInterval) clearInterval(slideshowInterval)
-    let delay = 15;
+    let delay = 30;
     let html = ``
     let buffer_count = 4;
     if (buffer_count > photos.length) buffer_count = photos.length;
