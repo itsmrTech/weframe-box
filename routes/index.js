@@ -16,6 +16,7 @@ router.get('/files/cache', async function (req, res, next) {
   console.log('url', url)
   let cache = getByURL(url)
   let local_path
+  console.log(cache)
   if (cache) {
     local_path = cache.local_path
     if (!fs.existsSync(local_path)) {

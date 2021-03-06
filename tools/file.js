@@ -8,7 +8,7 @@ async function downloadFile(fileUrl, outputLocationPath) {
       url: fileUrl,
       responseType: 'stream',
     }).then(response => {
-  
+  console.log(response.data)
       //ensure that the user can call `then()` only when the file has
       //been downloaded entirely.
   
@@ -28,6 +28,8 @@ async function downloadFile(fileUrl, outputLocationPath) {
           //'error' stream;
         });
       });
+    }).catch(e=>{
+      console.error('dl err',e)
     });
   }
   module.exports={downloadFile}

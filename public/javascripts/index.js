@@ -225,6 +225,7 @@ socket.on("slideshow", (data) => {
     slideshow.photos = slideshow.photos.map(photo => `${photo}?device-code=${DEVICE_CODE}`)
     cleanCache([...slideshow.photos])
     console.log(slideshow)
+    if(peer)return;
     if (slideshow.photos && slideshow.photos.length > 0) {
         showOnly("slideshow")
         return genJsSlideshow(slideshow.photos)
