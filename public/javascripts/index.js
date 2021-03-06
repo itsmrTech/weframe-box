@@ -388,8 +388,27 @@ socket.on("hangup", (data) => {
 
 
 // }
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+  
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+  
+    return array;
+  }
 let slideshowInterval
 function genJsSlideshow(photos) {
+    photos=shuffle(photos)
     if (slideshowInterval) clearInterval(slideshowInterval)
     let delay = 30;
     let html = ``
@@ -404,6 +423,7 @@ function genJsSlideshow(photos) {
     $(`#slideshow li:nth-child(1) span`).css("opacity", 1);
     let index = 0;
     slideshowInterval = setInterval(() => {
+        if((buffer_count + index) % photos.length==0)photos=shuffle(photos)
         console.log("change")
         $(`#slideshow li:nth-child(1) span`).css("opacity", 0);
         setTimeout(() => {
