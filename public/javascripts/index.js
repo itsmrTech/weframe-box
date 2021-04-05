@@ -225,7 +225,7 @@ socket.on("slideshow", (data) => {
     slideshow.photos = slideshow.photos.map(photo => `${photo}?device-code=${DEVICE_CODE}`)
     cleanCache([...slideshow.photos])
     console.log(slideshow)
-    if(peer)return;
+    if (peer) return;
     if (slideshow.photos && slideshow.photos.length > 0) {
         showOnly("slideshow")
         return genJsSlideshow(slideshow.photos)
@@ -293,7 +293,7 @@ const genGreeting = (name) => {
 }
 
 var ringtone = new Audio('/ringtones/iphone_ringtone.mp3');
-ringtone.loop=true;
+ringtone.loop = true;
 // setTimeout(()=>ringtone.play(),3000)
 // const ring = (duration = 30) => {
 //     audio.play();
@@ -311,7 +311,29 @@ socket.on("signal", (otherSignal) => {
     ringtone.play();
     setTimeout(() => {
 
-        navigator.getUserMedia({ video: true, audio: true }, function (stream) {
+        navigator.getUserMedia({
+            video: true, audio: {
+
+                googEchoCancellation: true,
+
+                googExperimentalEchoCancellation: true,
+
+                googAutoGainControl: true,
+
+                googExperimentalAutoGainControl: true,
+
+                googNoiseSuppression: true,
+
+                googHighpassFilter: true,
+
+                googAudioMirroring: false,
+
+                googExperimentalNoiseSuppression: true,
+
+                deviceId: "default"
+
+            }
+        }, function (stream) {
             console.log("get user media")
             peer = new SimplePeer({
                 initiator: false,
@@ -390,25 +412,25 @@ socket.on("hangup", (data) => {
 // }
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
-  
+
     // While there remain elements to shuffle...
     while (0 !== currentIndex) {
-  
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-  
-      // And swap it with the current element.
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
     }
-  
+
     return array;
-  }
+}
 let slideshowInterval
 function genJsSlideshow(photos) {
-    photos=shuffle(photos)
+    photos = shuffle(photos)
     if (slideshowInterval) clearInterval(slideshowInterval)
     let delay = 30;
     let html = ``
@@ -423,7 +445,7 @@ function genJsSlideshow(photos) {
     $(`#slideshow li:nth-child(1) span`).css("opacity", 1);
     let index = 0;
     slideshowInterval = setInterval(() => {
-        if((buffer_count + index) % photos.length==0)photos=shuffle(photos)
+        if ((buffer_count + index) % photos.length == 0) photos = shuffle(photos)
         console.log("change")
         $(`#slideshow li:nth-child(1) span`).css("opacity", 0);
         setTimeout(() => {
