@@ -7,7 +7,7 @@ var fs = require("fs")
 if (!fs.existsSync("public/cache")) fs.mkdirSync("public/cache")
 router.get('/firmware', async function (req, res, next) {
   return res.status(200).json({
-    build: 16
+    build: 17
   })
 })
 /* GET home page. */
@@ -19,6 +19,7 @@ router.get('/files/cache', async function (req, res, next) {
   console.log(cache)
   if (cache) {
     local_path = cache.local_path
+    console.log('local_path',local_path,fs.existsSync(local_path))
     if (!fs.existsSync(local_path)) {
       local_path = "public/cache/" + shortid.generate()
       let result = await downloadFile(url, local_path)

@@ -8,7 +8,8 @@ async function downloadFile(fileUrl, outputLocationPath) {
       url: fileUrl,
       responseType: 'stream',
     }).then(response => {
-  console.log(response.data)
+      console.log('fetched')
+  // console.log(response.data)
       //ensure that the user can call `then()` only when the file has
       //been downloaded entirely.
   
