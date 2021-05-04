@@ -221,8 +221,8 @@ socket.on("you-there", (data) => {
 socket.on("slideshow", (data) => {
     let { slideshow, device } = data
     Device = device
-    setCookie("device", JSON.stringify(device))
     slideshow.photos = slideshow.photos.map(photo => `${photo}?device-code=${DEVICE_CODE}`)
+    setCookie("device", JSON.stringify(device))
     cleanCache([...slideshow.photos])
     console.log(slideshow)
     if (peer) return;

@@ -1,16 +1,21 @@
 var fs = require("fs")
+let cacheFilled = false;
 global.images_cache = []
-if (!fs.existsSync("cache.json")) fs.writeFileSync("cache.json", JSON.stringify(global.images_cache), { encoding: "utf-8" })
-else {
-    try {
-        let data = JSON.parse(fs.readFileSync("cache.json",{encoding:"utf-8"}))
-        global.images_cache = data;
-    }
-    catch (e) {
-        fs.writeFileSync("cache.json", JSON.stringify([]), { encoding: "utf-8" })
+const fillCache = () => {
+    if (!fs.existsSync("cache.json")) fs.writeFileSync("cache.json", JSON.stringify(global.images_cache), { encoding: "utf-8" })
+    else {
+        try {
+            let data = JSON.parse(fs.readFileSync("cache.json", { encoding: "utf-8" }))
+            global.images_cache = data;
+        }
+        catch (e) {
+            fs.writeFileSync("cache.json", JSON.stringify([]), { encoding: "utf-8" })
 
+        }
     }
+    cacheFilled=true;
 }
+fillCache();
 const updateFile = async () => {
     fs.writeFileSync("cache.json", JSON.stringify(global.images_cache), { encoding: "utf-8" })
 }
@@ -21,20 +26,21 @@ const upsert = async (url, local_path) => {
         global.images_cache[foundIndex] = { url, local_path }
     updateFile()
 }
-const getByURL=(url)=>{
+const getByURL = (url) => {
+    if (!cacheFilled) fillCache()
     return global.images_cache.find(v => v.url == url)
 }
-const removeByURLs=async(urls)=>{
+const removeByURLs = async (urls) => {
     console.log(global.images_cache.length)
-    global.images_cache=global.images_cache.filter(cache=>{
-        let found=false;
-        urls.map(url=>{
-            if(cache.url==url){
-                found=true;
-                fs.unlink(cache.local_path,()=>{})
+    global.images_cache = global.images_cache.filter(cache => {
+        let found = false;
+        urls.map(url => {
+            if (cache.url == url) {
+                found = true;
+                fs.unlink(cache.local_path, () => { })
             }
         })
-        console.log('omiting',cache,found)
+        console.log('omiting', cache, found)
         return found
     })
     console.log(global.images_cache.length)
@@ -42,4 +48,4 @@ const removeByURLs=async(urls)=>{
     updateFile()
 
 }
-module.exports = { upsert,getByURL,removeByURLs }
+module.exports = { upsert, getByURL, removeByURLs }
