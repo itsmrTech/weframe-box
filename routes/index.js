@@ -4,13 +4,13 @@ var { upsert, getByURL, removeByURLs } = require("../tools/cacheStorage");
 var { downloadFile } = require("../tools/file");
 var shortid = require("shortid")
 var fs = require("fs")
-console.log('does public cache exists', fs.existsSync("public/cache"), fs.readdirSync('public/cache')?.length)
+console.log('does public cache exists', fs.existsSync("public/cache"), fs.readdirSync('public/cache').length)
 if (!fs.existsSync("public/cache")) fs.mkdirSync("public/cache")
-console.log('second does public cache exists', fs.existsSync("public/cache"), fs.readdirSync('public/cache')?.length)
+console.log('second does public cache exists', fs.existsSync("public/cache"), fs.readdirSync('public/cache').length)
 
 router.get('/firmware', async function (req, res, next) {
   return res.status(200).json({
-    build: 19
+    build: 20
   })
 })
 /* GET home page. */
